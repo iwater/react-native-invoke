@@ -1,9 +1,9 @@
-import com.wix.invoke.exceptions.EmptyInvocationInstructionException;
 import com.wix.invoke.MethodInvocation;
+import com.wix.invoke.exceptions.EmptyInvocationInstructionException;
 import com.wix.invoke.types.Invocation;
 import com.wix.invoke.types.Target;
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -20,6 +20,13 @@ public class MethodInvocationTest {
         Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 0);
         Object retVal = MethodInvocation.invoke(invocation);
         Assert.assertEquals("0", retVal);
+    }
+
+    @Test
+    public void invokeStaticStringValueOfFloat() {
+        Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 1.0f);
+        Object retVal = MethodInvocation.invoke(invocation);
+        Assert.assertEquals("1.0", retVal);
     }
 
     @Test

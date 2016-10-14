@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MethodInvocationTest {
     @Test(expected = EmptyInvocationInstructionException.class)
     public void invokeEmptyInvocation() {
-        assertThat(MethodInvocation.invoke(new Invocation(null, null, null))).isNull();
+        assertThat(MethodInvocation.invoke(new Invocation(null, null))).isNull();
     }
 
     @Test

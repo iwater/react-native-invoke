@@ -18,58 +18,50 @@ public class MethodInvocationTest {
     @Test
     public void invokeStaticStringValueOfInteger() {
         Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 0);
-        Object retVal = MethodInvocation.invoke(invocation);
-        assertThat(retVal).isEqualTo("0");
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo("0");
     }
 
     @Test
     public void invokeStaticStringValueOfFloat() {
         Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 1.0f);
-        Object retVal = MethodInvocation.invoke(invocation);
-        assertThat(retVal).isEqualTo("1.0");
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo("1.0");
     }
 
     @Test
     public void invokeStaticStringValeOfBoolean() {
         Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", true);
-        Object retVal = MethodInvocation.invoke(invocation);
-        assertThat(retVal).isEqualTo("true");
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo("true");
     }
 
     @Test
     public void invokeStaticStringValueOfChar() {
         Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 'c');
-        Object retVal = MethodInvocation.invoke(invocation);
-        assertThat(retVal).isEqualTo("c");
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo("c");
     }
 
     @Test
     public void invokeStaticMathMin1_2() {
         Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.Math"), "min", 1, 2);
-        Object retVal = MethodInvocation.invoke(invocation);
-        assertThat(retVal).isEqualTo(1);
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo(1);
     }
 
     @Test
     public void invokeStaticArraysBinarySearchFindExisting() {
         Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.util.Arrays"), "binarySearch", new Object[]{1, 2, 3, 4, 5}, 3);
-        Object retVal = MethodInvocation.invoke(invocation);
-        assertThat(retVal).isEqualTo(2);
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo(2);
     }
 
     @Test
     public void invokeStaticArraysBinarySearchFindInRange() {
         Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.util.Arrays"), "binarySearch", new Object[]{1, 2, 3, 4, 5}, 0, 1, 3);
-        Object retVal = MethodInvocation.invoke(invocation);
-        assertThat(retVal).isEqualTo(-2);
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo(-2);
     }
 
     @Test
     public void invokeMethodOnReturnValueOfStaticInvocation() {
         Invocation innerInvocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 'c');
         Invocation outerInvocation = new Invocation(new Target(Target.Type.Invocation, innerInvocation), "length");
-        Object outerRetVal = MethodInvocation.invoke(outerInvocation);
-        assertThat(outerRetVal).isEqualTo(1);
+        assertThat(MethodInvocation.invoke(outerInvocation)).isEqualTo(1);
     }
 
 
@@ -78,8 +70,7 @@ public class MethodInvocationTest {
         Invocation innerInvocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 'c');
         Invocation intermediateInvocation = new Invocation(new Target(Target.Type.Invocation, innerInvocation), "concat", "c");
         Invocation outerInvocation = new Invocation(new Target(Target.Type.Invocation, intermediateInvocation), "length");
-        Object outerRetVal = MethodInvocation.invoke(outerInvocation);
-        assertThat(outerRetVal).isEqualTo(2);
+        assertThat(MethodInvocation.invoke(outerInvocation)).isEqualTo(2);
     }
 
     @Test
@@ -88,8 +79,7 @@ public class MethodInvocationTest {
         Invocation intermediateInvocation1 = new Invocation(new Target(Target.Type.Invocation, innerInvocation), "concat", "c");
         Invocation intermediateInvocation2 = new Invocation(new Target(Target.Type.Invocation, intermediateInvocation1), "concat", "b");
         Invocation outerInvocation = new Invocation(new Target(Target.Type.Invocation, intermediateInvocation2), "length");
-        Object outerRetVal = MethodInvocation.invoke(outerInvocation);
-        assertThat(outerRetVal).isEqualTo(3);
+        assertThat(MethodInvocation.invoke(outerInvocation)).isEqualTo(3);
     }
 
     @Test

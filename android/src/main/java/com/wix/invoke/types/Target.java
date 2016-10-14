@@ -58,7 +58,6 @@ public class Target {
 
         if (type != target.type) return false;
         return value != null ? value.equals(target.value) : target.value == null;
-
     }
 
     @Override

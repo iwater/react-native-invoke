@@ -87,7 +87,6 @@ public class Invocation {
 
         if (target != null ? !target.equals(that.target) : that.target != null) return false;
         if (method != null ? !method.equals(that.method) : that.method != null) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
         return Arrays.equals(args, that.args);
 
     }

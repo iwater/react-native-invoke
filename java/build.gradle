@@ -1,3 +1,4 @@
+
 group 'com.wix'
 version '1.0-SNAPSHOT'
 
@@ -17,4 +18,10 @@ dependencies {
     testCompile 'org.assertj:assertj-core:3.5.2'
     testCompile 'org.apache.commons:commons-io:1.3.2'
 
+}
+
+test {
+    afterTest { desc, result -> 
+        println "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    }
 }

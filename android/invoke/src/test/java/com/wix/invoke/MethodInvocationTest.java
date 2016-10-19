@@ -85,6 +85,21 @@ public class MethodInvocationTest {
     }
 
     @Test
+    public void invokeMethodOnObjectInstance() {
+        Invocation innerInvocation = new Invocation(new Target(Target.Type.ObjectInstance, new String("c")), "concat", "c");
+        Invocation outerInvocation = new Invocation(new Target(Target.Type.Invocation, innerInvocation), "length");
+        assertThat(MethodInvocation.invoke(outerInvocation)).isEqualTo(2);
+    }
+
+    @Test
+    public void invokeMethodOnObjectInstanceTwice() {
+        Invocation innerInvocation = new Invocation(new Target(Target.Type.ObjectInstance, new String("c")), "concat", "c");
+        Invocation intermediateInvocation = new Invocation(new Target(Target.Type.Invocation, innerInvocation), "concat", "c");
+        Invocation outerInvocation = new Invocation(new Target(Target.Type.Invocation, intermediateInvocation), "length");
+        assertThat(MethodInvocation.invoke(outerInvocation)).isEqualTo(3);
+    }
+
+    @Test
     public void fromJsonTargetClassStaticMethodNoParams() {
         assertThat(jsonToInvocation("targetClassStaticMethodNoParams.json")).isEqualTo(System.lineSeparator());
     }

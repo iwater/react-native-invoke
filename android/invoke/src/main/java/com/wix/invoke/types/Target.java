@@ -8,7 +8,8 @@ public class Target {
 
     public enum Type {
         Class,
-        Invocation
+        Invocation,
+        ObjectInstance
     }
 
     Type type;

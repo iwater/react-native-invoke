@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableNativeMap;
 import com.wix.invoke.MethodInvocation;
 
 
@@ -23,15 +24,13 @@ public class ReactNativeInvokeManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void invoke(final ReadableMap params, final Promise promise) {
-
-        Object invocationResult = null;
-
+    public void execute(final ReadableMap params, final Promise promise) {
         try {
-            invocationResult = MethodInvocation.invoke("cd");
+            Object invocationResult = MethodInvocation.invoke(((ReadableNativeMap)params).toHashMap());
+            promise.resolve(invocationResult);
         } catch (Exception ex) {
             promise.reject(ex);
         }
-        promise.resolve(invocationResult);
+    }
     }
 }

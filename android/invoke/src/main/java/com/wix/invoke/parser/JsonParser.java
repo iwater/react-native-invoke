@@ -9,6 +9,15 @@ import java.io.IOException;
  */
 public class JsonParser {
 
+    public static <T> T parse(Object object, Class<T> valueType) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.convertValue(object, valueType);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static <T> T parse(String jsonData, Class<T> valueType) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {

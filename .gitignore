@@ -151,3 +151,5 @@ xcuserdata
 # ...none. Everything is now explained.:
 *.iml
 android/.gradle
+java/.gradle
+.gradle

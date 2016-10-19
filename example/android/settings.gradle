@@ -1,3 +1,6 @@
 rootProject.name = 'example'
 
 include ':app'
+include ':react-native-invoke'
+project(':react-native-invoke').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-invoke/android/invoke')
+println(project(':react-native-invoke').projectDir)

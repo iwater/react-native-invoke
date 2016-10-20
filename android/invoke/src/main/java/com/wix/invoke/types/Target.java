@@ -1,41 +1,25 @@
 package com.wix.invoke.types;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Created by rotemm on 10/10/2016.
  */
-public class Target {
 
-    public enum Type {
-        Class,
-        Invocation,
-        ObjectInstance
-    }
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = ClassTarget.class, name = "Class"),
+        @JsonSubTypes.Type(value = InvocationTarget.class, name = "Invocation")})
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class Target {
 
-    Type type;
     Object value;
 
-    public Target() {
-
-    }
-
-    public Target(String type, Object value) {
-        this.type = Type.valueOf(type);
+    public Target(Object value) {
         this.value = value;
-    }
-
-
-    public Target(Type type, Object value) {
-        this.type = type;
-        this.value = value;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     public Object getValue() {
@@ -43,12 +27,18 @@ public class Target {
     }
 
     public void setValue(Object value) {
-        if (type.equals(Type.Invocation)) {
-            this.value = new Invocation(value);
-        } else {
-            this.value = value;
-        }
+        this.value = value;
     }
+
+    public Object invoke(Invocation invocation) throws Exception {
+        if (this.value instanceof Invocation) {
+            Invocation innerInvocation = (Invocation) this.value;
+            this.value = innerInvocation.getTarget().invoke(innerInvocation);
+        }
+        return execute(invocation);
+    }
+
+    public abstract Object execute(Invocation invocation) throws Exception;
 
     @Override
     public boolean equals(Object o) {
@@ -57,14 +47,12 @@ public class Target {
 
         Target target = (Target) o;
 
-        if (type != target.type) return false;
         return value != null ? value.equals(target.value) : target.value == null;
     }
 
     @Override
     public int hashCode() {
-        int result = type != null ? type.hashCode() : 0;
-        result = 31 * result + (value != null ? value.hashCode() : 0);
+        int result = (value != null ? value.hashCode() : 0);
         return result;
     }
 }

@@ -38,30 +38,11 @@ public class MethodInvocation {
         if (StringUtils.isBlank(invocation.getMethod()))
             throw new EmptyInvocationInstructionException();
 
-        Object retVal;
         try {
             Target target = invocation.getTarget();
-            switch (target.getType()) {
-                case Class:
-                    retVal = MethodUtils.invokeStaticMethod(Class.forName(target.getValue().toString()), invocation.getMethod(), invocation.getArgs());
-                    break;
-                case Invocation:
-                    Invocation innerInvocation = (Invocation) target.getValue();
-                    Object intermediate = invoke(innerInvocation);
-                    retVal = MethodUtils.invokeExactMethod(intermediate, invocation.getMethod(), invocation.getArgs());
-                    break;
-                case ObjectInstance:
-                    retVal = MethodUtils.invokeExactMethod(target.getValue(), invocation.getMethod(), invocation.getArgs());
-                    break;
-                default:
-                    throw new RuntimeException("unsupported target type:" + target.getType());
-            }
+            return target.invoke(invocation);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if (retVal != null) {
-            return retVal;
-        }
-        return null;
     }
 }

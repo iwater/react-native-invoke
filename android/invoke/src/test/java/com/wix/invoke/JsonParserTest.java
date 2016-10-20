@@ -1,8 +1,10 @@
 package com.wix.invoke;
 
 import com.wix.invoke.parser.JsonParser;
+import com.wix.invoke.types.ClassTarget;
 import com.wix.invoke.types.Invocation;
-import com.wix.invoke.types.Target;
+import com.wix.invoke.types.InvocationTarget;
+
 import org.junit.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -14,20 +16,20 @@ public class JsonParserTest {
 
     @Test
     public void targetClassStaticMethodNoParams() {
-        Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.System"), "lineSeparator");
+        Invocation invocation = new Invocation(new ClassTarget("java.lang.System"), "lineSeparator");
         assertThat(parse("targetClassStaticMethodNoParams.json")).isEqualToComparingFieldByFieldRecursively(invocation);
     }
 
     @Test
     public void parseTargetClassStaticMethodOneParam() {
-        Invocation invocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 1.0f);
+        Invocation invocation = new Invocation(new ClassTarget("java.lang.String"), "valueOf", 1.0f);
         assertThat(parse("targetClassStaticMethodOneParam.json")).isEqualToComparingFieldByFieldRecursively(invocation);
     }
 
     @Test
     public void targetInvocationMethodOfClassStaticMethodOneParam() {
-        Invocation innerInvocation = new Invocation(new Target(Target.Type.Class, "java.lang.String"), "valueOf", 1.0f);
-        Invocation outerInvocation = new Invocation(new Target(Target.Type.Invocation, innerInvocation), "length");
+        Invocation innerInvocation = new Invocation(new ClassTarget("java.lang.String"), "valueOf", 1.0f);
+        Invocation outerInvocation = new Invocation(new InvocationTarget(innerInvocation), "length");
         assertThat(parse("targetInvocationMethodOfClassStaticMethodOneParam.json")).isEqualToComparingFieldByFieldRecursively(outerInvocation);
     }
 

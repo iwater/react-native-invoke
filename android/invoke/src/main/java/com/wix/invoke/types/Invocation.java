@@ -1,6 +1,5 @@
 package com.wix.invoke.types;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -20,19 +19,6 @@ public class Invocation {
         this.target = target;
         this.method = method;
         this.args = args;
-    }
-
-    public Invocation(Object value) {
-        HashMap params = (HashMap) value;
-        HashMap targetParams = (HashMap) params.get("target");
-        String type = (String) targetParams.get("type");
-        Object ParamValue = targetParams.get("value");
-
-        this.target = new Target(type, ParamValue);
-        this.method = (String) params.get("method");
-        ArrayList args = (ArrayList) params.get("args");
-
-        setArgs(args.toArray());
     }
 
     public String getMethod() {

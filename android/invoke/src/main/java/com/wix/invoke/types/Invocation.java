@@ -1,11 +1,14 @@
 package com.wix.invoke.types;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
 /**
  * Created by rotemm on 10/10/2016.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Invocation {
     Target target;
     String method;

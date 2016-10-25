@@ -9,6 +9,8 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableNativeMap;
 import com.wix.invoke.MethodInvocation;
 
+import java.util.HashMap;
+
 
 public class ReactNativeInvokeManager extends ReactContextBaseJavaModule {
 
@@ -16,6 +18,7 @@ public class ReactNativeInvokeManager extends ReactContextBaseJavaModule {
 
     public ReactNativeInvokeManager(ReactApplicationContext reactContext) {
         super(reactContext);
+        ContextWrapper.init(reactContext);
     }
 
     @Override
@@ -25,12 +28,8 @@ public class ReactNativeInvokeManager extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void execute(final ReadableMap params, final Promise promise) {
-        try {
-            Object invocationResult = MethodInvocation.invoke(((ReadableNativeMap)params).toHashMap());
-            promise.resolve(invocationResult);
-        } catch (Exception ex) {
-            promise.reject(ex);
-        }
-    }
+        HashMap paramsMap = ((ReadableNativeMap) params).toHashMap();
+        Object invocationResult = MethodInvocation.invoke(paramsMap);
+        promise.resolve(invocationResult);
     }
 }

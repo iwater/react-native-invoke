@@ -12,7 +12,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ClassTarget.class, name = "Class"),
-        @JsonSubTypes.Type(value = InvocationTarget.class, name = "Invocation")})
+        @JsonSubTypes.Type(value = InvocationTarget.class, name = "Invocation"),
+        @JsonSubTypes.Type(value = ObjectInstanceTarget.class, name = "Espresso"),
+        @JsonSubTypes.Type(value = ReactContextTarget.class, name = "React.Context"),
+        @JsonSubTypes.Type(value = ReactViewTarget.class, name = "React.View")
+})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Target {
 

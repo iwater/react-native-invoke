@@ -4,7 +4,7 @@ import com.wix.invoke.exceptions.EmptyInvocationInstructionException;
 import com.wix.invoke.types.ClassTarget;
 import com.wix.invoke.types.Invocation;
 import com.wix.invoke.types.InvocationTarget;
-import com.wix.invoke.types.Target;
+import com.wix.invoke.types.ObjectInstanceTarget;
 
 import org.junit.Test;
 
@@ -88,16 +88,16 @@ public class MethodInvocationTest {
 
     @Test
     public void invokeMethodOnObjectInstance() {
-        Invocation innerInvocation = new Invocation(new Target(Target.Type.ObjectInstance, new String("c")), "concat", "c");
-        Invocation outerInvocation = new Invocation(new Target(Target.Type.Invocation, innerInvocation), "length");
+        Invocation innerInvocation = new Invocation(new ObjectInstanceTarget(new String("c")), "concat", "c");
+        Invocation outerInvocation = new Invocation(new InvocationTarget(innerInvocation), "length");
         assertThat(MethodInvocation.invoke(outerInvocation)).isEqualTo(2);
     }
 
     @Test
     public void invokeMethodOnObjectInstanceTwice() {
-        Invocation innerInvocation = new Invocation(new Target(Target.Type.ObjectInstance, new String("c")), "concat", "c");
-        Invocation intermediateInvocation = new Invocation(new Target(Target.Type.Invocation, innerInvocation), "concat", "c");
-        Invocation outerInvocation = new Invocation(new Target(Target.Type.Invocation, intermediateInvocation), "length");
+        Invocation innerInvocation = new Invocation(new ObjectInstanceTarget(new String("c")), "concat", "c");
+        Invocation intermediateInvocation = new Invocation(new InvocationTarget(innerInvocation), "concat", "c");
+        Invocation outerInvocation = new Invocation(new InvocationTarget(intermediateInvocation), "length");
         assertThat(MethodInvocation.invoke(outerInvocation)).isEqualTo(3);
     }
 

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Platform,
   Image,
   ScrollView,
   TouchableOpacity
@@ -33,14 +34,23 @@ export default class ScrollOffsetExample extends Component {
     );
   }
   async onButtonPress() {
-    //ObjC:  CGPoint result = [componentView.scrollView contentOffset];
-    const _rctScrollView = Invoke.React.view(this.refs['scroll']);
-    const _getScrollView = Invoke.call(_rctScrollView, 'scrollView');
-    const _getOffset = Invoke.call(_getScrollView, 'contentOffset');
-    const {x, y} = await Invoke.execute(_getOffset);
-    this.setState({
-      value: `${Math.round(y)}`
-    });
+    if (Platform.OS === 'ios') {
+      //ObjC:  CGPoint result = [componentView.scrollView contentOffset];
+      const _rctScrollView = Invoke.React.view(this.refs['scroll']);
+      const _getScrollView = Invoke.call(_rctScrollView, 'scrollView');
+      const _getOffset = Invoke.call(_getScrollView, 'contentOffset');
+      const {x, y} = await Invoke.execute(_getOffset);
+      this.setState({
+        value: `${Math.round(y)}`
+      });
+    } else {
+      const scrollView = Invoke.React.view(this.refs['scroll']);
+      const getScrollY = Invoke.call(scrollView, 'getScrollY');
+      const y = await Invoke.execute(getScrollY);
+      this.setState({
+        value: `${Math.round(y)}`
+      });
+    }
   }
 }
 

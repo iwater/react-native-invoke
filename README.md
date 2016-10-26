@@ -1,6 +1,6 @@
 # React Native Invoke
 
-Invoke any native code directly from Javascript in React Native (without wrapping it first with a native manager). Gives you full access from JS to all native API of iOS (and Android soon).
+Invoke any native code directly from Javascript in React Native (without wrapping it first with a native manager). Gives you full access from JS to all native API of iOS and Android.
 ## Why
 The story behind this library and why it might be useful:<br>
 https://medium.com/@talkol/invoke-any-native-api-directly-from-pure-javascript-in-react-native-1fb6afcdf57d
@@ -168,15 +168,23 @@ const selectionEnd = await Invoke.execute(getSelectionEnd);
 
 <br>
 ## Full example project
+Available [here](example)
 
 ####iOS
-Available [here](example), open the `/example` folder, run `npm install` and then open `/example/ios/example.xcodeproj` in Xcode.
-
-####Android
-Available [here](example), open the `/example` folder, run `npm install`
 
 ```sh
 cd example
+npm install
+react-native run-ios
+```
+
+
+or `open ios/example.xcodeproj` to open in xcode.
+
+####Android
+```sh
+cd example
+npm install
 react-native run-android
 ```
 

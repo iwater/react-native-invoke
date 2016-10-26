@@ -52,12 +52,18 @@ public class Invocation {
                 Object value = ((HashMap) argument).get("value");
                 if (type.equals("Integer")) {
                     argument = (int) value;
+                } else if (type.equals("integer")) {
+                    argument = (int) value;
                 } else if (type.equals("Float")) {
                     argument = new Float((Double) value);
                 } else if (type.equals("Double")) {
                     argument = (double) value;
                 } else if (type.equals("String")) {
                     argument = (String) value;
+                }else if (type.equals("Boolean")) {
+                    argument = ((Boolean) value);
+                } else if (type.equals("boolean")) {
+                    argument = ((Boolean) value).booleanValue();
                 }
 
                 args[i] = argument;
@@ -66,6 +72,7 @@ public class Invocation {
 
         this.args = args;
     }
+
 
     @Override
     public boolean equals(Object o) {

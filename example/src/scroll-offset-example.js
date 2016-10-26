@@ -44,6 +44,7 @@ export default class ScrollOffsetExample extends Component {
         value: `${Math.round(y)}`
       });
     } else {
+      //java: scrollView.getScrollY();
       const scrollView = Invoke.React.view(this.refs['scroll']);
       const getScrollY = Invoke.call(scrollView, 'getScrollY');
       const y = await Invoke.execute(getScrollY);

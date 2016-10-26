@@ -5,6 +5,7 @@ import {
   View,
   Image,
   TextInput,
+  Platform,
   TouchableOpacity
 } from 'react-native';
 import Invoke from 'react-native-invoke';
@@ -20,7 +21,7 @@ export default class TextCursorPosExample extends Component {
     return (
       <View style={styles.container}>
         <TextInput ref='input' multiline={true}
-          style={{flex: 1, borderColor: 'gray', borderWidth: 1, margin: 10, padding: 10, fontSize: 20}}
+          style={{flex: 1, borderColor: 'gray', borderWidth: 1, margin: 10, padding: 10, fontSize: 20, alignSelf: 'stretch'}}
           value='hello world hello world hello world hello world hello world hello world hello world hello world hello world'
         />
         <View style={{flex: 1, justifyContent: 'center'}}>
@@ -34,17 +35,27 @@ export default class TextCursorPosExample extends Component {
     );
   }
   async onButtonPress() {
-    //ObjC:  id textView = [componentView valueForKey:@'_textView'];
-    //ObjC:  CGRect result = [textView caretRectForPosition:textView.selectedTextRange.start];
-    const _rctTextInput = Invoke.React.view(this.refs['input']);
-    const _getTextView = Invoke.call(_rctTextInput, 'valueForKey:', '_textView');
-    const _getSelectedTextRange = Invoke.call(_getTextView, 'selectedTextRange');
-    const _getStartPosition = Invoke.call(_getSelectedTextRange, 'start');
-    const _getCaretRect = Invoke.call(_getTextView, 'caretRectForPosition:', _getStartPosition);
-    const {x, y, width, height} = await Invoke.execute(_getCaretRect);
-    this.setState({
-      value: `(${Math.round(x)},${Math.round(y)})`
-    });
+    if (Platform.OS === 'ios') {
+      //ObjC:  id textView = [componentView valueForKey:@'_textView'];
+      //ObjC:  CGRect result = [textView caretRectForPosition:textView.selectedTextRange.start];
+      const _rctTextInput = Invoke.React.view(this.refs['input']);
+      const _getTextView = Invoke.call(_rctTextInput, 'valueForKey:', '_textView');
+      const _getSelectedTextRange = Invoke.call(_getTextView, 'selectedTextRange');
+      const _getStartPosition = Invoke.call(_getSelectedTextRange, 'start');
+      const _getCaretRect = Invoke.call(_getTextView, 'caretRectForPosition:', _getStartPosition);
+      const {x, y, width, height} = await Invoke.execute(_getCaretRect);
+      this.setState({
+        value: `(${Math.round(x)},${Math.round(y)})`
+      });
+    } else {
+      const textView = Invoke.React.view(this.refs['input']);
+      const getSelectionEnd = Invoke.call(textView, 'getSelectionEnd');
+      const selectionEnd = await Invoke.execute(getSelectionEnd);
+      
+      this.setState({
+        value: `(${selectionEnd})`
+      });
+    }
   }
 }
 

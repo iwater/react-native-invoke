@@ -1,6 +1,7 @@
 package com.wix.reactnativeinvoke;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.NativeViewHierarchyManager;
 
 import java.lang.ref.WeakReference;
 
@@ -11,7 +12,7 @@ import java.lang.ref.WeakReference;
 public class ContextWrapper {
 
     private static WeakReference<ReactApplicationContext> sReactContext;
-
+    private static WeakReference<NativeViewHierarchyManager> sNativeViewHierarchyManager;
     public static void init(ReactApplicationContext reactContext) {
         sReactContext = new WeakReference<>(reactContext);
     }
@@ -21,5 +22,16 @@ public class ContextWrapper {
             throw new RuntimeException("ContextWrapper needs to be initialized using init(context)");
         }
         return sReactContext.get();
+    }
+
+    public static void setNativeViewHierarchyManager(NativeViewHierarchyManager nativeViewHierarchyManager) {
+        sNativeViewHierarchyManager = new WeakReference<>(nativeViewHierarchyManager);
+    }
+
+    public static NativeViewHierarchyManager getNativeViewHierarchyManager() {
+        if (sNativeViewHierarchyManager == null) {
+            throw new RuntimeException("NativeViewHierarchyManager has not yet been set");
+        }
+        return sNativeViewHierarchyManager.get();
     }
 }

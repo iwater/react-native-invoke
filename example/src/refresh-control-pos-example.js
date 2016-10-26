@@ -5,6 +5,7 @@ import {
   View,
   Image,
   ScrollView,
+  Platform,
   TouchableOpacity,
   RefreshControl
 } from 'react-native';
@@ -15,7 +16,7 @@ export default class RefreshControlPosExample extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={{flex: 1}} refreshControl={
-          <RefreshControl refreshing={true} ref='refresh'/>
+          <RefreshControl refreshing={true} ref='refresh' testID="123456"/>
         }>
           <Image style={{width: 320, height: 560}} source={{uri: 'http://i.imgur.com/Q6PCl4B.jpg'}} />
         </ScrollView>
@@ -29,7 +30,8 @@ export default class RefreshControlPosExample extends Component {
   }
   
   async onButtonPress() {
-    if (platform.OS == 'ios') {
+    console.log("pressed");
+    if (Platform.OS === 'ios') {
       //ObjC:  CGRect frame = componentView.frame;
       const _rctRefreshControl = Invoke.React.view(this.refs['refresh']);
       const _getRefreshFrame = Invoke.call(_rctRefreshControl, 'frame');
@@ -39,7 +41,10 @@ export default class RefreshControlPosExample extends Component {
       const _setRefreshFrame = Invoke.call(_rctRefreshControl, 'setFrame:', Invoke.IOS.CGRect({x, y, width, height}));
       await Invoke.execute(_setRefreshFrame);
     } else {
-      const Invoke.call();
+      // reactSwipeRefreshLayout.setRefreshing(false);
+      const swipeRefreshLayout = Invoke.React.view(this.refs['refresh']);
+      const setRefreshing = Invoke.call(swipeRefreshLayout, 'setRefreshing', {type: "Boolean", value: false});
+      await Invoke.execute(setRefreshing);
     }
   }
 }

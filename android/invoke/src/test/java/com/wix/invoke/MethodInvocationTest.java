@@ -50,6 +50,18 @@ public class MethodInvocationTest {
     }
 
     @Test
+    public void invokeStaticMathCbrt() {
+        Invocation invocation = new Invocation(new ClassTarget("java.lang.Math"), "cbrt", 64);
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo(4.0);
+    }
+
+    @Test
+    public void invokeStaticMathCbrtObject() {
+        Invocation invocation = new Invocation(new ClassTarget("java.lang.Math"), "cbrt", new Double(64));
+        assertThat(MethodInvocation.invoke(invocation)).isEqualTo(4.0);
+    }
+
+    @Test
     public void invokeStaticArraysBinarySearchFindExisting() {
         Invocation invocation = new Invocation(new ClassTarget("java.util.Arrays"), "binarySearch", new Object[]{1, 2, 3, 4, 5}, 3);
         assertThat(MethodInvocation.invoke(invocation)).isEqualTo(2);

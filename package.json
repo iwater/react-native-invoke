@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/wix/react-native-invoke.git"
   },
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Invoke any native code directly from Javascript in React Native",
   "nativePackage": true,
   "bugs": {
@@ -17,6 +17,5 @@
   "main": "index.js",
   "author": "Tal Kol <talkol@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-  }
+  "dependencies": {}
 }

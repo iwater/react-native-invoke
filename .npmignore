@@ -1,1 +1,16 @@
 example
+
+
+ios/DerivedData/
+
+build/
+android/build
+android/.gradle
+android/.idea
+
+android/invoke/build
+
+.gradle/
+.idea/
+*.iml
+.gitignore

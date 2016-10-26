@@ -32,20 +32,33 @@ or add it in your `package.json`:
 
 - Add `react-native-invoke` from `node_modules` to your `settings.gradle`:
 
-```gradle
-include ':app'
-include ':react-native-invoke'
-project(':react-native-invoke').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-invoke/android/invoke')
-```
+	```gradle
+	include ':app'
+	include ':react-native-invoke'
+	project(':react-native-invoke').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-invoke/android/invoke')
+	```
 
 - In `app/build.gradle` add `react-native-invoke` as a dependency
-
-```gradle
-dependencies {
-	...
-    compile project(':react-native-invoke')
-}
+	
+	```gradle
+	dependencies {
+		...
+	    compile project(':react-native-invoke')
+	}
 ```
+
+- In `YourApplication.java` register `InvokeReactPackage` in your pacakges:
+
+	```java
+	@Override
+	protected List<ReactPackage> getPackages() {
+	    return Arrays.<ReactPackage>asList(
+	            new MainReactPackage(),
+	            ...
+	            new InvokeReactPackage()
+	    );
+	 }
+	```
 
 <br><br>
 ## Executing calls to native

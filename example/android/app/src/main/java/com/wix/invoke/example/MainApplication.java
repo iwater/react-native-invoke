@@ -1,4 +1,4 @@
-package com.example;
+package com.wix.invoke.example;
 
 /**
  * Created by rotemm on 19/10/2016.
@@ -10,7 +10,6 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import com.wix.invoke.example.BuildConfig;
 import com.wix.reactnativeinvoke.InvokeReactPackage;
 
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.example;
+package com.wix.invoke.example;
 
 import com.facebook.react.ReactActivity;
 

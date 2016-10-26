@@ -21,6 +21,6 @@ public class ReactViewTarget extends ReactContextTarget {
     @Override
     public Object execute(Invocation invocation) throws Exception {
         View view = ContextWrapper.getNativeViewHierarchyManager().resolveView(((Double)value).intValue());
-        return MethodUtilsExt.invokeExactMethod2(view, invocation.getMethod(), invocation.getArgs());
+        return MethodUtilsExt.invokeExactMethodNoAutobox(view, invocation.getMethod(), invocation.getArgs());
     }
 }

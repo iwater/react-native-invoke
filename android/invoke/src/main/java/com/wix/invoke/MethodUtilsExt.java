@@ -19,7 +19,7 @@ public class MethodUtilsExt extends MethodUtils {
     }
 
 
-    public static Object invokeExactMethod2(final Object object, final String methodName, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Object invokeExactMethodNoAutobox(final Object object, final String methodName, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
         Class<?>[] parameterTypes = toClass(args);
         parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);

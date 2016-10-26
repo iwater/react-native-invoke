@@ -48,6 +48,7 @@ export default class TextCursorPosExample extends Component {
         value: `(${Math.round(x)},${Math.round(y)})`
       });
     } else {
+      //java: textView.getSelectionEnd()
       const textView = Invoke.React.view(this.refs['input']);
       const getSelectionEnd = Invoke.call(textView, 'getSelectionEnd');
       const selectionEnd = await Invoke.execute(getSelectionEnd);

@@ -7,6 +7,17 @@ https://medium.com/@talkol/invoke-any-native-api-directly-from-pure-javascript-i
 <br><br>
 ## Install
 
+####Both Platforms
+- In your project root, `npm install react-native-invoke --save`<br>
+or add it in your `package.json`:
+ 
+```json
+  "dependencies": {
+	...
+    "react-native-invoke": "^0.2.0"
+ }
+```
+
 #### iOS
 
 * In your project root, `npm install react-native-invoke --save`
@@ -19,7 +30,23 @@ https://medium.com/@talkol/invoke-any-native-api-directly-from-pure-javascript-i
 
 #### Android
 
-Coming soon
+- Add `react-native-invoke` from `node_modules` to your `settings.gradle`:
+
+```gradle
+include ':app'
+include ':react-native-invoke'
+project(':react-native-invoke').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-invoke/android/invoke')
+```
+
+- In `app/build.gradle` add `react-native-invoke` as a dependency
+
+```gradle
+dependencies {
+	...
+    compile project(':react-native-invoke')
+}
+```
+
 <br><br>
 ## Executing calls to native
 
@@ -47,6 +74,7 @@ const {x, y} = await Invoke.execute(_getContentOffset);
 
 ## Example invocations
 
+###iOS
 ###### 1. from Objective-C
 
 ```objc
@@ -103,14 +131,60 @@ const _getStartPosition = Invoke.call(_getSelectedTextRange, 'start');
 const _getCaretRect = Invoke.call(_getTextView, 'caretRectForPosition:', _getStartPosition);
 const {x, y, width, height} = await Invoke.execute(_getCaretRect);
 ```
+
+###Android
+###### 1. from java
+```java
+reactSwipeRefreshLayout.setRefreshing(false);
+```
+###### &nbsp;&nbsp;&nbsp; to Javascript
+```js
+const swipeRefreshLayout = Invoke.React.view(this.refs['refresh']);
+const setRefreshing = Invoke.call(swipeRefreshLayout, 'setRefreshing', {type: "Boolean", value: false});
+await Invoke.execute(setRefreshing);
+```
+
+###### 2. from java
+```java
+scrollView.getScrollY()
+```
+###### &nbsp;&nbsp;&nbsp; to Javascript
+```js
+const scrollView = Invoke.React.view(this.refs['scroll']);
+const getScrollY = Invoke.call(scrollView, 'getScrollY');
+const y = await Invoke.execute(getScrollY);
+```
+
+###### 3. from java
+```java
+textView.getSelectionEnd()
+```
+###### &nbsp;&nbsp;&nbsp; to Javascript
+```js
+const textView = Invoke.React.view(this.refs['input']);
+const getSelectionEnd = Invoke.call(textView, 'getSelectionEnd');
+const selectionEnd = await Invoke.execute(getSelectionEnd);
+```
+
 <br>
 ## Full example project
 
+####iOS
 Available [here](example), open the `/example` folder, run `npm install` and then open `/example/ios/example.xcodeproj` in Xcode.
 
-* [Example of getting the scroll offset of a ScrollView](example/scroll-offset-example.js)
-* [Example of getting, changing and setting the frame of RefreshControl](example/refresh-control-pos-example.js)
-* [Example of getting the cursor pos from a TextInput](example/text-cursor-pos-example.js)
+####Android
+Available [here](example), open the `/example` folder, run `npm install`
+
+```sh
+cd example
+react-native run-android
+```
+
+
+####javascript
+* [Example of getting the scroll offset of a ScrollView](example/src/scroll-offset-example.js)
+* [Example of getting, changing and setting the frame of RefreshControl](example/src/refresh-control-pos-example.js)
+* [Example of getting the cursor pos from a TextInput](example/src/text-cursor-pos-example.js)
 <br><br>
 
 ## API

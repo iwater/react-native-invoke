@@ -1,5 +1,10 @@
 # React Native Invoke
 
+[![NPM Version](https://img.shields.io/npm/v/react-native-invoke.svg?style=flat)](https://www.npmjs.com/package/react-native-invoke)
+[![NPM Downloads](https://img.shields.io/npm/dm/react-native-invoke.svg?style=flat)](https://www.npmjs.com/package/react-native-invoke)
+[![Build Status](https://travis-ci.org/wix/react-native-invoke.svg?branch=master)](https://travis-ci.org/wix/react-native-invoke)
+
+
 Invoke any native code directly from Javascript in React Native (without wrapping it first with a native manager). Gives you full access from JS to all native API of iOS and Android.
 ## Why
 The story behind this library and why it might be useful:<br>

@@ -12,4 +12,3 @@ echo "Copying Android licenses"
 scriptdir=`dirname $0`
 mkdir -p "${ANDROID_HOME}"/licenses
 cp "${scriptdir}"/android-sdk-licenses/* "${ANDROID_HOME}"/licenses
-z

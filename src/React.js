@@ -1,4 +1,4 @@
-var findNodeHandle = require('react-native').findNodeHandle;
+const findNodeHandle = require('react-native').findNodeHandle;
 
 function view(component) {
   return {

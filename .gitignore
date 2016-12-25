@@ -153,3 +153,5 @@ xcuserdata
 android/.gradle
 java/.gradle
 .gradle
+node_modules
+coverage

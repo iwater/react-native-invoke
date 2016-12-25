@@ -1,11 +1,11 @@
-var CGPoint = function (value) {
+const CGPoint = function(value) {
   return {
     type: 'CGPoint',
     value: value
   };
 };
 
-var CGRect = function (value) {
+const CGRect = function(value) {
   return {
     type: 'CGRect',
     value: value

@@ -14,12 +14,22 @@ import org.apache.commons.lang3.StringUtils;
 public class MethodInvocation {
 
     public static Object invoke(Object map) {
-        Invocation invocation = JsonParser.parse(map, Invocation.class);
+        return invoke(map, null);
+    }
+
+    public static Object invoke(Object map, Class<?> extendWith) {
+        JsonParser parser = getParserWithExtendedParsableTargetTypes(extendWith);
+        Invocation invocation = parser.parse(map, Invocation.class);
         return invoke(invocation);
     }
 
     public static Object invoke(String invocationJson) {
-        Invocation invocation = JsonParser.parse(invocationJson, Invocation.class);
+        return invoke(invocationJson, null);
+    }
+
+    public static Object invoke(String invocationJson, Class<?> extendWith) {
+        JsonParser parser = getParserWithExtendedParsableTargetTypes(extendWith);
+        Invocation invocation = parser.parse(invocationJson, Invocation.class);
         return invoke(invocation);
     }
 
@@ -33,5 +43,11 @@ public class MethodInvocation {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static JsonParser getParserWithExtendedParsableTargetTypes(Class<?> extendWith) {
+        JsonParser parser = new JsonParser();
+        parser.addMixInAnnotations(Target.class, extendWith);
+        return parser;
     }
 }

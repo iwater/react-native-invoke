@@ -11,6 +11,7 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.wix.invoke.MethodInvocation;
+import com.wix.reactnativeinvoke.types.TargetExtendMixIn;
 
 import java.util.HashMap;
 
@@ -39,7 +40,8 @@ public class ReactNativeInvokeManager extends ReactContextBaseJavaModule {
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 ContextWrapper.setNativeViewHierarchyManager(nativeViewHierarchyManager);
                 HashMap paramsMap = ((ReadableNativeMap) params).toHashMap();
-                Object invocationResult = MethodInvocation.invoke(paramsMap);
+
+                Object invocationResult = MethodInvocation.invoke(paramsMap, TargetExtendMixIn.class);
                 promise.resolve(invocationResult);
             }
         });

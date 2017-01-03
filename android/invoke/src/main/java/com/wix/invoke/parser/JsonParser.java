@@ -9,8 +9,17 @@ import java.io.IOException;
  */
 public class JsonParser {
 
-    public static <T> T parse(Object object, Class<T> valueType) {
-        ObjectMapper objectMapper = new ObjectMapper();
+    ObjectMapper objectMapper;
+    public JsonParser() {
+        objectMapper = new ObjectMapper();
+    }
+
+    public void addMixInAnnotations(Class<?> target, Class<?> mixinSource) {
+        objectMapper.addMixInAnnotations(target, mixinSource);
+    }
+
+    public <T> T parse(Object object, Class<T> valueType) {
+
         try {
             return objectMapper.convertValue(object, valueType);
         } catch (IllegalArgumentException e) {
@@ -18,8 +27,7 @@ public class JsonParser {
         }
     }
 
-    public static <T> T parse(String jsonData, Class<T> valueType) {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public <T> T parse(String jsonData, Class<T> valueType) {
         try {
             return objectMapper.readValue(jsonData, valueType);
         } catch (IOException e) {

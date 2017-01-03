@@ -1,10 +1,11 @@
-package com.wix.invoke.types;
+package com.wix.reactnativeinvoke.types;
 
 import android.view.View;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wix.invoke.MethodUtilsExt;
+import com.wix.invoke.types.Invocation;
 import com.wix.reactnativeinvoke.ContextWrapper;
 
 /**
@@ -20,7 +21,7 @@ public class ReactViewTarget extends ReactContextTarget {
 
     @Override
     public Object execute(Invocation invocation) throws Exception {
-        View view = ContextWrapper.getNativeViewHierarchyManager().resolveView(((Double)value).intValue());
+        View view = ContextWrapper.getNativeViewHierarchyManager().resolveView(((Double)getValue()).intValue());
         return MethodUtilsExt.invokeExactMethodNoAutobox(view, invocation.getMethod(), invocation.getArgs());
     }
 }

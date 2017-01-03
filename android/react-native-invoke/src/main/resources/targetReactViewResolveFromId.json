@@ -1,0 +1,8 @@
+{
+  "target": {
+    "type": "React.View",
+    "value": "123456"
+  },
+  "method": "testMethod",
+  "args": []
+}

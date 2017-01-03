@@ -35,6 +35,6 @@ public class JsonParserTest {
 
     public Invocation parse(String filePath) {
         String jsonData = TestUtils.jsonFileToString(filePath);
-        return JsonParser.parse(jsonData, Invocation.class);
+        return new JsonParser().parse(jsonData, Invocation.class);
     }
 }

@@ -1,16 +1,19 @@
 example
 
-
+# ios
 ios/DerivedData/
 
+# android
 build/
 android/build
 android/.gradle
 android/.idea
-
 android/invoke/build
-
+android/react-native-invoke/build
 .gradle/
 .idea/
 *.iml
 .gitignore
+
+# jest output
+coverage

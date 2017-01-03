@@ -1,1 +1,5 @@
 include ':invoke'
+//project(':invoke').projectDir = new File(rootProject.projectDir, './invoke')
+
+include ':react-native-invoke'
+//project(':react-native-invoke').projectDir = new File(rootProject.projectDir, './react-native-invoke')

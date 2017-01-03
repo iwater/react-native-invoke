@@ -1,5 +1,3 @@
-apply from: 'extra/environment.gradle'
-
 buildscript {
     repositories {
         jcenter()

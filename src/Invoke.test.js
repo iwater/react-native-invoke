@@ -18,4 +18,21 @@ describe('Invoke.call', () => {
 
     expect(testCall()).toEqual(expectedResult);
   });
+
+  it('function invocation call, no params', () => {
+    const func = jest.fn();
+    func.mockReturnValue('a string');
+    const testCall = Invoke.call(func , 'length');
+
+    const expectedResult = {
+      args: [],
+      method: "length",
+      target: {
+        type: "Invocation",
+        value: "a string"
+      }
+    };
+
+    expect(testCall()).toEqual(expectedResult);
+  });
 });

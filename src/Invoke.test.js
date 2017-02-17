@@ -22,7 +22,7 @@ describe('Invoke.call', () => {
   it('function invocation call, no params', () => {
     const func = jest.fn();
     func.mockReturnValue('a string');
-    const testCall = Invoke.call(func , 'length');
+    const testCall = Invoke.call(func, 'length');
 
     const expectedResult = {
       args: [],

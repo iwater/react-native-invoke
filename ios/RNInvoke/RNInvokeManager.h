@@ -6,7 +6,7 @@
 //  Copyright © 2016 Wix. All rights reserved.
 //
 
-#import "RCTBridgeModule.h"
+#import "React/RCTBridgeModule.h"
 
 @interface RNInvokeManager : NSObject <RCTBridgeModule>
 

@@ -7,7 +7,7 @@
 //
 
 #import "MethodInvocation.h"
-#import "RCTUIManager.h"
+#import "React/RCTUIManager.h"
 
 static RCTBridge *_bridge;
 
